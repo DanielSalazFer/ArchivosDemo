@@ -86,6 +86,7 @@ public class ListAdapter extends ArrayAdapter<Archivo> implements View.OnClickLi
 
                  Intent intent = new Intent(mContext, DirectoriosActivity.class);
                  intent.putExtra(finalConvertView.getResources().getString(R.string.intent_key_directorios), dataModel.getPath());
+                 intent.putExtra("archivo", dataModel);
                  mContext.startActivity(intent);
                 }
             });

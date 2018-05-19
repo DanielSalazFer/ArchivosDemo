@@ -44,6 +44,7 @@ public class DirectoriosActivity extends AppCompatActivity {
            // System.out.println("Path: "+getIntent().getSerializableExtra(getResources().getString(R.string.intent_key_directorios)));
             archivos= (ArrayList) getIntent().getSerializableExtra(getResources().getString(R.string.intent_key_directorios));
 
+            archivoEncontrado = (Archivo) getIntent().getSerializableExtra("archivo");
             adapter.addAll(archivos);
 
 
@@ -59,7 +60,7 @@ public class DirectoriosActivity extends AppCompatActivity {
                     System.out.println("else");
                     File root = Environment.getExternalStorageDirectory();
                     System.out.println("else2");
-                    dataModels = lookForFilesAndDirectories(root);
+                    dataModels = lookForDirectories(root, archivoEncontrado);
 
                     /*Set<String> hs = new HashSet<>();
                     hs.addAll(dataModels);
@@ -89,19 +90,19 @@ public class DirectoriosActivity extends AppCompatActivity {
 
 
 
-    public ArrayList<Archivo> lookForDirectories(File file) {
+    public ArrayList<Archivo> lookForDirectories(File file, Archivo archivoP) {
         Archivo archivo = new Archivo();
 
         if( file.isDirectory() ) {
             String[] filesAndDirectories = file.list();
             for( String fileOrDirectory : filesAndDirectories) {
-                File f = new File(file.getAbsolutePath() );
+                File f = new File(archivoP.getPath());
                 Log.d("Directorio:" , file.getName());
                 archivo.setTipo(true);
                 archivo.setNombre(file.getName());
                 archivo.setPath(file.getAbsolutePath());
                 archivos.add(archivo);
-                lookForDirectories(f);
+                lookForDirectories(f, archivo);
             }
         } else {
             Log.d("Archivo:" , file.getName());
