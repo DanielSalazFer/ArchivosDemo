@@ -2,6 +2,9 @@ package cgi.una.ac.cr.archivodemo;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Environment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import model.Archivo;
@@ -23,6 +27,7 @@ public class ListAdapter extends ArrayAdapter<Archivo> implements View.OnClickLi
 
     private ArrayList<Archivo> dataSet;
     Context mContext;
+    private boolean tema; // 1 oscuro, 0 claro
 
 
 
@@ -56,15 +61,17 @@ public class ListAdapter extends ArrayAdapter<Archivo> implements View.OnClickLi
     }
 
 
+    public void setTema(boolean tema) {
+        this.tema = tema;
+    }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
 
-        System.out.println("Position = "+position);
+        //System.out.println("Position = "+position);
         // Get the data item for this position
         final Archivo dataModel = getItem(position);
-
 
 
 
@@ -84,10 +91,20 @@ public class ListAdapter extends ArrayAdapter<Archivo> implements View.OnClickLi
                 @Override
                 public void onClick(View view) {
 
+                    /*
                  Intent intent = new Intent(mContext, DirectoriosActivity.class);
-                 intent.putExtra(finalConvertView.getResources().getString(R.string.intent_key_directorios), dataModel.getPath());
+                 intent.putExtra(finalConvertView.getResources().getString(R.string.intent_key_directorios), dataSet);
                  intent.putExtra("archivo", dataModel);
-                 mContext.startActivity(intent);
+                 mContext.startActivity(intent);*/
+                    dataSet.clear();
+                    notifyDataSetChanged();
+                    File root = Environment.getExternalStorageDirectory();
+
+                    dataSet = lookForFilesAndDirectories(root, dataModel);
+                    notifyDataSetChanged();
+
+
+
                 }
             });
         }
@@ -99,8 +116,43 @@ public class ListAdapter extends ArrayAdapter<Archivo> implements View.OnClickLi
         TextView name = (TextView) convertView.findViewById(R.id.name);
         name.setText(dataModel.getNombre());
 
+        if(tema)
+            name.setTextColor(convertView.getResources().getColor(R.color.white));
+        else
+            name.setTextColor(convertView.getResources().getColor(R.color.black));
+
+
+
+
 
 
         return convertView;
+    }
+
+
+
+    public ArrayList<Archivo> lookForFilesAndDirectories(File file, Archivo arch) {
+        Archivo archivo = new Archivo();
+
+        if( file.isDirectory() ) {
+            String[] filesAndDirectories = file.list();
+            for( String fileOrDirectory : filesAndDirectories) {
+                File f = new File(file.getAbsolutePath() + "/" + arch.getPath());
+                Log.d("Directorio:" , file.getName() + " path: "+ file.getAbsolutePath());
+                archivo.setTipo(true);
+                archivo.setNombre(file.getName());
+                archivo.setPath(file.getAbsolutePath());
+                dataSet.add(archivo);
+                lookForFilesAndDirectories(f, archivo);
+            }
+        } else {
+            Log.d("Archivo:" , file.getName());
+            archivo.setTipo(false);
+            archivo.setNombre(file.getName());
+            dataSet.add(archivo);
+
+
+        }
+        return dataSet;
     }
 }

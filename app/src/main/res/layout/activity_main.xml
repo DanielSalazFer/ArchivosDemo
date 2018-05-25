@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cgi.una.ac.cr.archivodemo.MainActivity">
+    tools:context="cgi.una.ac.cr.archivodemo.MainActivity"
+    android:id="@+id/mainActivity">
 
     <Switch
         android:id="@+id/switch1"
@@ -34,9 +35,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
+        android:backgroundTint="@color/colorPrimary"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name"
         app:layout_constraintStart_toEndOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/switch1" />
 
@@ -46,6 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:backgroundTint="@color/colorPrimary"
         android:onClick="guardarBtn"
         android:text="Guardar"
         app:layout_constraintStart_toStartOf="parent"

@@ -2,7 +2,11 @@
     <string name="app_name">ArchivoDemo</string>
     <string name="preference_file_key">preferencias</string>
     <string name="preference_visual">preference_visual</string>
+    <string name="preference_visual_theme">preference_visual_theme</string>
+    <string name="preference_visual_theme_name">preference_visual_theme_name</string>
     <string name="intent_key">intent_key</string>
     <string name="intent_key_directorios">intent_key_directorios</string>
     <string name="action_settings">Preferencias</string>
+    <string name="temaOscuro">Tema Oscuro</string>
+    <string name="temaClaro">Tema Claro</string>
 </resources>
