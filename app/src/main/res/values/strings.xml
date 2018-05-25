@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ArchivoDemo</string>
+    <string name="app_name">Archivo Demo</string>
     <string name="preference_file_key">preferencias</string>
     <string name="preference_visual">preference_visual</string>
     <string name="preference_visual_theme">preference_visual_theme</string>

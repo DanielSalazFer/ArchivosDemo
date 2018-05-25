@@ -93,8 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void guardarBtn(View view) {
 
-        Snackbar.make(view, "Guardado", Snackbar.LENGTH_LONG)
-                .show();
+
 
         EditText name = (EditText)findViewById(R.id.editText);
 
@@ -116,10 +115,6 @@ public class MainActivity extends AppCompatActivity {
             this.getSharedPreferences(getString(R.string.preference_visual_theme), Context.MODE_PRIVATE).edit().putString(getString(R.string.preference_visual_theme), getString(R.string.temaClaro)).commit();
             aplicaTema(this.getSharedPreferences(getString(R.string.preference_visual_theme), Context.MODE_PRIVATE).getString(getString(R.string.preference_visual_theme), getResources().getString(R.string.temaClaro)));
         }
-
-
-
-
 
 
 
